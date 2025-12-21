@@ -61,16 +61,19 @@ bsg_barrier_amoadd_wakeup:
   // t4 - shamt
   // t5 - dim dist
   // t6 - temp reg
+  // a2 - alt link reg
   ori t0, t0, bsg_tiles_X
   li  t4, 18
 
   // if y=0, wake-up in x dim
-  beq  x0, t1, bsg_barrier_start_dim
+  bne  x0, t1, bsg_barrier_wakeup_y
+  jal  a2, bsg_barrier_start_dim
 
 bsg_barrier_wakeup_y:
   // wake-up in y dim
   ori t0, t1, bsg_tiles_Y
   li  t4, 24
+  mv  a2, ra
 
 bsg_barrier_start_dim:
   li t5, 1
@@ -88,7 +91,4 @@ bsg_barrier_wakeup:
   sw   t3, 0(t6)
   srli t5, t5, 0x1
   bne  t5, x0, bsg_barrier_wakeup
-  
-  li   t6, 18
-  beq  t4, t6, bsg_barrier_wakeup_y
-  ret
+  jr   a2
