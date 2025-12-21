@@ -43,11 +43,8 @@ bsg_barrier_amoadd_wakeup:
   // t4 - x distance
   // t5 - y distance
   // t6 - temp reg
-  la  t0, __bsg_x
-  la  t1, __bsg_y
-
-  lw  t0, 0(t0)
-  lw  t1, 0(t1)
+  lw  t0, __bsg_x
+  lw  t1, __bsg_y
 
   li   t2, 0x20000000
   slli t6, t1, 24

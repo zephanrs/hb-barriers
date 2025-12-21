@@ -53,10 +53,8 @@ bsg_barrier_amoadd_wakeup:
   li a4, (0x2003FFFF | ((bsg_tiles_Y - 1) << 24) | ((bsg_tiles_X - 1) << 18))
 
   // load in x and y values of tile
-  la a2, __bsg_y
-  la a3, __bsg_x
-  lw a2, 0(a2)
-  lw a3, 0(a3)
+  lw a2, __bsg_y
+  lw a3, __bsg_x
 
   // construct address
   li t4, 0x20000000
